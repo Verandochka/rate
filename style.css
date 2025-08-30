@@ -3,13 +3,12 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    height: 100vh;
+    height: 100dvh;
     margin: 0;
 }
 
@@ -63,12 +62,13 @@ button:hover {
 
 #battle-container {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     position: fixed;
     top: 0;
     left: 0;
     display: flex;
-    overflow: auto;
+    flex-direction: row;
+    overflow: hidden;
 }
 
 #battle-container > div {
@@ -80,25 +80,26 @@ button:hover {
 }
 
 #battle-container img {
-    width: 90vw;
+    width: 90%;
     max-width: 95vw;
     height: auto;
     max-height: 80vh;
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    object-fit: contain;
 }
 
 @media (max-width: 700px) {
     #battle-container {
         width: 100vw;
-        height: 100vh;
+        height: 100dvh;
         flex-direction: row;
     }
     #battle-container img {
-        width: 44vw;
-        max-width: 95vw;
+        width: 95vw;
+        max-width: 48vw;
         height: auto;
-        max-height: 40vh;
+        max-height: 38vh;
     }
     .registration-container {
         width: 95vw !important;
