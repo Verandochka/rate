@@ -9,9 +9,6 @@ html, body {
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
     margin: 0;
 }
@@ -65,29 +62,43 @@ button:hover {
 }
 
 #battle-container {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
-    overflow: hidden;
+    overflow: auto;
+}
+
+#battle-container > div {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#battle-container img {
+    width: 90vw;
+    max-width: 95vw;
+    height: auto;
+    max-height: 80vh;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 700px) {
     #battle-container {
-        flex-direction: column;
-    }
-    #battle-container > div {
-        flex: 1 1 50%;
-        width: 100%;
-        height: 50%;
-        justify-content: flex-start !important;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: row;
     }
     #battle-container img {
-        width: 90vw !important;
-        height: 40vw !important;
-        max-width: 95vw !important;
-        max-height: 45vh !important;
+        width: 44vw;
+        max-width: 95vw;
+        height: auto;
+        max-height: 40vh;
     }
     .registration-container {
         width: 95vw !important;
