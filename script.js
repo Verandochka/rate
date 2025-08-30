@@ -319,21 +319,69 @@ function showBattle() {
 }
 
 function animateWinner(img, sideDiv, battle, callback) {
-    for (let child of battle.children) {
-        if (child !== sideDiv) {
+    // Вимикаємо клік на обох фото
+    Array.from(battle.querySelectorAll('img')).forEach(i => i.style.pointerEvents = 'none');
+
+    // Отримуємо координати фото до анімації
+    const rect = img.getBoundingClientRect();
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const imgCenterX = rect.left + rect.width / 2;
+    const imgCenterY = rect.top + rect.height / 2;
+    const translateX = centerX - imgCenterX;
+    const translateY = centerY - imgCenterY;
+
+    // Піднімаємо фото над іншими
+    img.style.zIndex = '2001';
+
+    // Ховаємо підпис під фото-переможцем
+    const label = img.nextSibling;
+    if (label && label.nodeType === 1) {
+        label.style.transition = 'opacity 0.3s';
+        label.style.opacity = '0';
+    }
+
+    // Анімація: збільшення і переміщення в центр
+    img.style.transition = 'transform 0.7s cubic-bezier(.4,2,.6,1), box-shadow 0.7s, border 0.7s';
+    img.style.transform = `translate(${translateX}px, ${translateY}px) scale(1.5)`;
+    img.style.boxShadow = '0 16px 64px rgba(0,0,0,0.3)';
+    img.style.border = '6px solid #28a745';
+
+    // Затіняємо ВЕСЬ фон
+    battle.style.transition = 'background 0.5s';
+    battle.style.background = '#fff';
+
+    // Приховуємо обидві сторони (щоб не було кольору переможця)
+    Array.from(battle.children).forEach(child => {
+        if (!child.contains(img)) {
             child.style.opacity = '0';
             child.style.transition = 'opacity 0.4s';
+        } else {
+            // Прибираємо фон у div з фото-переможцем
+            child.style.background = 'transparent';
         }
-    }
-    sideDiv.style.background = '#fff';
-    img.style.transform = 'scale(1.5)';
-    img.style.boxShadow = '0 16px 64px rgba(0,0,0,0.3)';
-    img.style.zIndex = '10';
-    sideDiv.style.justifyContent = 'center';
-    sideDiv.style.alignItems = 'center';
-    sideDiv.style.transition = 'background 0.5s';
+    });
 
-    setTimeout(callback, 1000);
+    // Після анімації фото залишається в центрі ще 0.5 сек
+    setTimeout(() => {
+        // Затримка 0.5 сек у центрі
+        setTimeout(() => {
+            // Повертаємо все до початкового стану
+            img.style.transform = '';
+            img.style.boxShadow = '';
+            img.style.border = '';
+            img.style.zIndex = '';
+            if (label && label.nodeType === 1) {
+                label.style.opacity = '';
+            }
+            battle.style.background = '';
+            Array.from(battle.children).forEach(child => {
+                child.style.opacity = '';
+                child.style.background = '';
+            });
+            callback();
+        }, 500);
+    }, 700);
 }
 
 function showFinalRanking() {
