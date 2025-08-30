@@ -179,13 +179,13 @@ function showBattle() {
         battle = document.createElement('div');
         battle.id = 'battle-container';
         battle.style.display = 'flex';
-        battle.style.width = '100vw';
-        battle.style.height = '100vh';
+        battle.style.width = '100%';
+        battle.style.height = '100%';
         battle.style.margin = '0';
         battle.style.padding = '0';
-        battle.style.position = 'fixed';
-        battle.style.top = '0';
-        battle.style.left = '0';
+        battle.style.position = 'absolute';
+        battle.style.inset = '0';
+        battle.style.overflow = 'hidden';
         document.body.appendChild(battle);
     }
     battle.innerHTML = '';
